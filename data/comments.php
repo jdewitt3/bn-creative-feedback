@@ -1,4 +1,5 @@
 <?php
+include("../lib/database.php");
 $log = new logmein();     //Instentiate the class
 $log->dbconnect();        //Connect to the database
 if($log->logincheck($_SESSION['loggedin']) == false) header( 'Location: http://localhost/HAXKR/index.php' );
