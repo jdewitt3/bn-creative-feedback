@@ -11,8 +11,16 @@ class Asset {
 		$api->encrypt = false;
     }
 	
-	function GetImages($userid) {
+	function GetImages($userId) {
 		return $api->getImages($userId);
+	}
+	
+	function GetComments($imageid) {
+		return $api->getComments($imageid);
+	}
+	
+	function AddTag($userId, $imageId, $name, $comment, $x, $y) {
+        return $api->AddTag($userId, $imageId, $name, $comment, $x, $y);
 	}
 	
 	// returns id of new project (-1 if failed)
@@ -21,7 +29,7 @@ class Asset {
     }
 	
 	function AddAsset($userId, $projectId, $file) {
-		//$userid = $_SESSION['userid'];	
+		//$userId = $_SESSION['userId'];	
 		
 		$fileName = basename($file['name']);
 		$target = $target.$fileName; 
