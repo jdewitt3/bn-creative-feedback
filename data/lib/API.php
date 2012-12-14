@@ -20,19 +20,19 @@ class API {
 	
 	//prevent injection
     function qry($query) {
-      $args  = func_get_args();
-      $query = array_shift($args);
-      $query = str_replace("?", "%s", $query);
-      $args  = array_map('mysql_real_escape_string', $args);
-      array_unshift($args,$query);
-      $query = call_user_func_array('sprintf',$args);
-      $result = mysql_query($query) or die(mysql_error());
-          if($result){
-            return $result;
-          }else{
-             $error = "Error";
-             return $result;
-          }
+		$args  = func_get_args();
+		$query = array_shift($args);
+		$query = str_replace("?", "%s", $query);
+		$args  = array_map('mysql_real_escape_string', $args);
+		array_unshift($args,$query);
+		$query = call_user_func_array('sprintf',$args);
+		$result = mysql_query($query) or die(mysql_error());
+		if($result){
+			return $result;
+		}else{
+			$error = "Error";
+			return $result;
+		}
     }
  
     //login function
@@ -100,6 +100,7 @@ class API {
 		return $rows;
 	}
 	
+	//----- Get Functions
 	function getClients($userId) {
 	    return resultToAssociativeArray($this->qry("SELECT * FROM clients WHERE `userid`='?';" , $userId));
 	}
@@ -113,17 +114,27 @@ class API {
 	}
 	
 	function getAssets($projectId) {
-        return resultToArray($this->qry("SELECT * FROM images WHERE `projectid`='?';" , $projectId));
+        return resultToArray($this->qry("SELECT * FROM assets WHERE `projectid`='?';" , $projectId));
 	}	
 	
-	function addAsset($userId, $projectId, $name, $version) {
+	function getAsset($assetId) {
+        return resultToArray($this->qry("SELECT * FROM assets WHERE `id`='?';" , $assetId));	
+	}
+		
+	function getComment($assetId) {
+		//
+	}
+	
+	//----- Insert Functions
+	function addAsset($userId, $projectId, $name) {
 		return $api->qry("INSERT INTO `images`(`id`, `userid`, `projectid`, `name`, `upload_time`) VALUES (null,?,?,'?',null)", $userId, $projectId, $name);
 	}
 	
-	function addComment($userId, $imageId, $comment) {
-		return $this->qry("INSERT INTO `comments`(`id`, `userid`, `imageid`, `comment`, `create_time`, `modify_time`) VALUES (null,?,?,?,null,null)", $userId, $imageId, $comment);
+	function addComment($userId, $assetId, $comment) {
+		return $this->qry("INSERT INTO `comments`(`id`, `userid`, `assetid`, `comment`, `create_time`, `modify_time`) VALUES (null,?,?,?,null,null)", $userId, $imageId, $comment);
 	}
 	
+	//----- Update Functions
 	function editComment($commentId, $comment) {
 		return $this->qry("UPDATE `comments` SET `comment`=?,`modify_time`=CURRENT_TIMESTAMP WHERE `id`=?" , $comment, $commentId);
 	}
