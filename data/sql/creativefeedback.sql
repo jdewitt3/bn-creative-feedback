@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Dec 14, 2012 at 03:15 AM
+-- Generation Time: Dec 14, 2012 at 06:56 AM
 -- Server version: 5.5.24-log
 -- PHP Version: 5.3.13
 
@@ -19,6 +19,44 @@ SET time_zone = "+00:00";
 --
 -- Database: `creativefeedback`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `applications`
+--
+
+CREATE TABLE IF NOT EXISTS `applications` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `clientid` int(11) NOT NULL,
+  `name` varchar(64) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `assets`
+--
+
+CREATE TABLE IF NOT EXISTS `assets` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `userid` int(11) NOT NULL,
+  `projectid` int(11) NOT NULL,
+  `name` varchar(256) NOT NULL,
+  `upload_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=5 ;
+
+--
+-- Dumping data for table `assets`
+--
+
+INSERT INTO `assets` (`id`, `userid`, `projectid`, `name`, `upload_time`) VALUES
+(1, 2, 1, 'Cellula_Memoralis_1025.jpg', '2012-12-14 02:02:55'),
+(2, 2, 1, 'Activities_of_the_Inanimate_1.jpg', '2012-12-14 03:41:14'),
+(3, 2, 1, 'SPLENDOR_SOLIS.jpg', '2012-12-14 03:41:20'),
+(4, 2, 1, 'SPLENDOR_SOLIS.jpg', '2012-12-14 04:04:59');
 
 -- --------------------------------------------------------
 
@@ -51,6 +89,7 @@ INSERT INTO `clients` (`id`, `name`) VALUES
 CREATE TABLE IF NOT EXISTS `comments` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `userid` int(11) NOT NULL,
+  `assetid` int(11) NOT NULL,
   `comment` varchar(2046) NOT NULL,
   `create_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `modify_time` timestamp NULL DEFAULT NULL,
@@ -60,16 +99,73 @@ CREATE TABLE IF NOT EXISTS `comments` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `images`
+-- Table structure for table `pages`
 --
 
-CREATE TABLE IF NOT EXISTS `images` (
+CREATE TABLE IF NOT EXISTS `pages` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `userid` int(11) NOT NULL,
-  `name` varchar(256) NOT NULL,
-  `upload_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `page` varchar(150) NOT NULL,
+  `private` tinyint(1) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=18 ;
+
+--
+-- Dumping data for table `pages`
+--
+
+INSERT INTO `pages` (`id`, `page`, `private`) VALUES
+(1, 'account.php', 1),
+(2, 'activate-account.php', 0),
+(3, 'admin_configuration.php', 1),
+(4, 'admin_page.php', 1),
+(5, 'admin_pages.php', 1),
+(6, 'admin_permission.php', 1),
+(7, 'admin_permissions.php', 1),
+(8, 'admin_user.php', 1),
+(9, 'admin_users.php', 1),
+(10, 'forgot-password.php', 0),
+(11, 'index.php', 0),
+(12, 'left-nav.php', 0),
+(13, 'login.php', 0),
+(14, 'logout.php', 1),
+(15, 'register.php', 0),
+(16, 'resend-activation.php', 0),
+(17, 'user_settings.php', 1);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `projects`
+--
+
+CREATE TABLE IF NOT EXISTS `projects` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `applicationid` int(11) NOT NULL,
+  `name` varchar(64) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
+
+--
+-- Dumping data for table `projects`
+--
+
+INSERT INTO `projects` (`id`, `applicationid`, `name`) VALUES
+(1, 1, 'MyFacebookTool');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tags`
+--
+
+CREATE TABLE IF NOT EXISTS `tags` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `commentid` int(11) NOT NULL,
+  `name` varchar(64) NOT NULL,
+  `locationx` int(11) NOT NULL,
+  `locationy` int(11) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
