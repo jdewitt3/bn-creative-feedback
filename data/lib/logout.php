@@ -1,6 +1,6 @@
 <?php
-include("database.php");
-$log = new logmein();
-$log->logout();
-header( 'Location: '.$log->path().'/index.php' );
+include("API.php");
+$api = new API();
+$api->logout();
+header( 'Location: '.$api->path().'/index.php' );
 ?>

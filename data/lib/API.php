@@ -3,7 +3,7 @@
 error_reporting(0);
 //start session
 session_start();
-class logmein {
+class API {
 	function path() {
 		return 'http://localhost/data/';
 	}
@@ -94,82 +94,5 @@ class logmein {
             }
         }
     }
- 
-    //reset password
-    function passwordreset($username, $user_table, $pass_column, $user_column){
-        //conect to DB
-        $this->dbconnect();
-        //generate new password
-        $newpassword = $this->createPassword();
- 
-        //make sure password column and table are set
-        if($this->pass_column == ""){
-            $this->pass_column = $pass_column;
-        }
-        if($this->user_column == ""){
-            $this->user_column = $user_column;
-        }
-        if($this->user_table == ""){
-            $this->user_table = $user_table;
-        }
-        //check if encryption is used
-        if($this->encrypt == true){
-            $newpassword_db = md5($newpassword);
-        }else{
-            $newpassword_db = $newpassword;
-        }
- 
-        //update database with new password
-        $qry = "UPDATE ".$this->user_table." SET ".$this->pass_column."='".$newpassword_db."' WHERE ".$this->user_column."='".stripslashes($username)."'";
-        $result = mysql_query($qry) or die(mysql_error());
- 
-        $to = stripslashes($username);
-        //some injection protection
-        $illegals=array("%0A","%0D","%0a","%0d","bcc:","Content-Type","BCC:","Bcc:","Cc:","CC:","TO:","To:","cc:","to:");
-        $to = str_replace($illegals, "", $to);
-        $getemail = explode("@",$to);
- 
-        //send only if there is one email
-        if(sizeof($getemail) > 2){
-            return false;
-        }else{
-            //send email
-            $from = $_SERVER['SERVER_NAME'];
-            $subject = "Password Reset: ".$_SERVER['SERVER_NAME'];
-            $msg = "
- 
-Your new password is: ".$newpassword."
- 
-";
- 
-            //now we need to set mail headers
-            $headers = "MIME-Version: 1.0 rn" ;
-            $headers .= "Content-Type: text/html; \r\n" ;
-            $headers .= "From: $from  \r\n" ;
- 
-            //now we are ready to send mail
-            $sent = mail($to, $subject, $msg, $headers);
-            if($sent){
-                return true;
-            }else{
-                return false;
-            }
-        }
-    }
- 
-    //create random password with 8 alphanumerical characters
-    function createPassword() {
-        $chars = "abcdefghijkmnopqrstuvwxyz023456789";
-        srand((double)microtime()*1000000);
-        $i = 0;
-        $pass = '' ;
-        while ($i <= 7) {
-            $num = rand() % 33;
-            $tmp = substr($chars, $num, 1);
-            $pass = $pass . $tmp;
-            $i++;
-        }
-        return $pass;
-    } 
 }
 ?>
