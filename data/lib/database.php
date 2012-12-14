@@ -4,6 +4,10 @@ error_reporting(0);
 //start session
 session_start();
 class logmein {
+	function path() {
+		return 'http://localhost/data/';
+	}
+	
     //database setup
     var $hostname_logon = 'localhost';        //Database server LOCATION
     var $database_logon = 'creativefeedback'; //Database NAME
@@ -166,22 +170,6 @@ Your new password is: ".$newpassword."
             $i++;
         }
         return $pass;
-    }
- 
-    //login form
-    function loginform($formname, $formaction){
-        echo'
-<form name="login" method="post" id="login" enctype="application/x-www-form-urlencoded" action="login.php">
-<div><label for="username">Username</label>
-<input name="username" id="username" type="text" value="kshay@brandnetworksinc.com"></div>
-<div><label for="password">Password</label>
-<input name="password" id="password" type="password" value="bnhack"></div>
-<input name="action" id="action" value="login" type="hidden">
-<div>
-<input name="submit" id="submit" value="Login" type="submit"></div>
-</form>
- 
-';
-    }
+    } 
 }
 ?>
