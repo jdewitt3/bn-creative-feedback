@@ -6,14 +6,17 @@ class Project {
 	function Project() {
 		$api = new API();
 		$api->dbconnect();
-		$api->encrypt = true;
-    }
-		
-	function GetProjects($userid) {
-		return $api->getProjects($userId);
+		$api->encrypt = false;
+    }		
+
+	function GetApplications($clientId) {
+		return $api->getApplications($clientId);
 	}
+		
+	function GetProjects($applicationId) {
+		return $api->getApplications($applicationId);
+	}	
 	
-	// returns id of new project (-1 if failed)
     function Create($clientId, $name) { 
         return $api->CreateProject($username, $password);
     }

@@ -6,7 +6,7 @@ class Session {
 	function Session() {
 		$api = new API();
 		$api->dbconnect();
-		$api->encrypt = true;
+		$api->encrypt = false;
     }
 	
     function Login($username, $password) { 

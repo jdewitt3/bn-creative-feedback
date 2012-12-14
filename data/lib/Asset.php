@@ -1,14 +1,14 @@
 <?php
 include("API.php");
-class Image {
+class Asset {
 	private $api = null;
 	private $types = array('image/jpeg', 'image/gif', 'image/png');
 	private $target = "../upload/";
 	
-	function Image() {
+	function Asset() {
 		$api = new API();
 		$api->dbconnect();
-		$api->encrypt = true;
+		$api->encrypt = false;
     }
 	
 	function GetImages($userid) {
@@ -17,10 +17,10 @@ class Image {
 	
 	// returns id of new project (-1 if failed)
     function AddComment($userId, $imageId, $comment) { 
-        return $api->addComment($username, $password);
+        return $api->addComment($userId, $imageId, $comment);
     }
 	
-	function Upload($userId, $file) {
+	function AddAsset($userId, $projectId, $file) {
 		//$userid = $_SESSION['userid'];	
 		
 		$fileName = basename($file['name']);
@@ -33,7 +33,7 @@ class Image {
 
 		if(move_uploaded_file($file['tmp_name'], $target)) 
 		{ 
-			return $api->addImage($userId, $fileName);
+			return $api->addAsset($userId, $projectId, $fileName);
 		} 
 		return false;		
 	}

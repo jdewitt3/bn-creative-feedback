@@ -82,7 +82,7 @@ class API {
         }
     }
 	
-	// converts result to array to pass back
+	// converts result to array to pass back ( column => value )
 	function resultToArray($result) {				
 		$rows = array();
 		while($r = mysql_fetch_assoc($result)) {
@@ -91,23 +91,36 @@ class API {
 		return $rows;
 	}
 	
-	function getClients() {
-	    return resultToArray($this->qry("SELECT * FROM clients"));
+	// converts result to an associative array to pass back ( id => name )
+	function resultToAssociativeArray($result) {				
+		$rows = array();
+		while($r = mysql_fetch_assoc($result)) {
+			$rows[$r['id']] = $r['name'];
+		}
+		return $rows;
+	}
+	
+	function getClients($userId) {
+	    return resultToAssociativeArray($this->qry("SELECT * FROM clients WHERE `userid`='?';" , $userId));
+	}
+	
+	function getApplications($clientId) {
+        return resultToAssociativeArray($this->qry("SELECT * FROM applications WHERE `clientid`='?';" , $clientId));
 	}
 		
-	function getImages($userId) {
-        return resultToArray($this->qry("SELECT * FROM images WHERE `userid` = '?';" , $userId));
+	function getProjects($applicationId) {
+        return resultToAssociativeArray($this->qry("SELECT * FROM projects WHERE `applicationid`='?';" , $applicationId));
 	}
 	
-	function getProjects($userId) {
-        return resultToArray($this->qry("SELECT * FROM projects WHERE projectid in (SELECT `projectid` FROM userproject WHERE `userid`='?');" , $userId));
+	function getAssets($projectId) {
+        return resultToArray($this->qry("SELECT * FROM images WHERE `projectid`='?';" , $projectId));
+	}	
+	
+	function addAsset($userId, $projectId, $name, $version) {
+		return $api->qry("INSERT INTO `images`(`id`, `userid`, `projectid`, `name`, `upload_time`) VALUES (null,?,?,'?',null)", $userId, $projectId, $name);
 	}
 	
-	function addImage($userId, $name) {
-		return $api->qry("INSERT INTO `images`(`id`, `userid`, `name`, `upload_time`) VALUES (null,?,'?',null)", $userid, $name);
-	}
-	
-	function addComment() {
+	function addComment($userId, $imageId, $comment) {
 		return $this->qry("INSERT INTO `comments`(`id`, `userid`, `imageid`, `comment`, `create_time`, `modify_time`) VALUES (null,?,?,?,null,null)", $userId, $imageId, $comment);
 	}
 	
