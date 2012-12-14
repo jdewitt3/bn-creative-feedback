@@ -121,13 +121,18 @@ class API {
         return resultToArray($this->qry("SELECT * FROM assets WHERE `id`='?';" , $assetId));	
 	}
 		
-	function getComment($assetId) {
-		//
+	function getComments($assetId) {
+		return resultToArray($this->qry("SELECT * FROM `comments`,`tags` WHERE comments.id=tags.commentid and comments.imageid=?;", $assetId);
 	}
 	
 	//----- Insert Functions
 	function addAsset($userId, $projectId, $name) {
 		return $api->qry("INSERT INTO `images`(`id`, `userid`, `projectid`, `name`, `upload_time`) VALUES (null,?,?,'?',null)", $userId, $projectId, $name);
+	}
+		
+	function addTag($userId, $projectId, $name, $comment, $x, $y) {
+		$comment = $this->addComment($userId, $assetId, $comment);
+		return $api->qry("INSERT INTO `tags`(`id`, `commentid`, `name`, `locationx`, `locationy`, `create_time`) VALUES (null,?,?,?,?,null)", $comment->id, $name, $x, $y);
 	}
 	
 	function addComment($userId, $assetId, $comment) {

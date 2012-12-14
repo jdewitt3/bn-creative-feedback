@@ -7,7 +7,11 @@ class Project {
 		$api = new API();
 		$api->dbconnect();
 		$api->encrypt = false;
-    }		
+    }
+
+	function GetClients($userId) {
+		return $api->GetClients($userId);
+	}
 
 	function GetApplications($clientId) {
 		return $api->getApplications($clientId);
@@ -16,9 +20,5 @@ class Project {
 	function GetProjects($applicationId) {
 		return $api->getApplications($applicationId);
 	}	
-	
-    function Create($clientId, $name) { 
-        return $api->CreateProject($username, $password);
-    }
 } 
 ?>

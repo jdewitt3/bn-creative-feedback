@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Dec 14, 2012 at 06:56 AM
+-- Generation Time: Dec 14, 2012 at 07:35 AM
 -- Server version: 5.5.24-log
 -- PHP Version: 5.3.13
 
@@ -44,7 +44,7 @@ CREATE TABLE IF NOT EXISTS `assets` (
   `userid` int(11) NOT NULL,
   `projectid` int(11) NOT NULL,
   `name` varchar(256) NOT NULL,
-  `upload_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `create_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=5 ;
 
@@ -52,11 +52,8 @@ CREATE TABLE IF NOT EXISTS `assets` (
 -- Dumping data for table `assets`
 --
 
-INSERT INTO `assets` (`id`, `userid`, `projectid`, `name`, `upload_time`) VALUES
-(1, 2, 1, 'Cellula_Memoralis_1025.jpg', '2012-12-14 02:02:55'),
-(2, 2, 1, 'Activities_of_the_Inanimate_1.jpg', '2012-12-14 03:41:14'),
-(3, 2, 1, 'SPLENDOR_SOLIS.jpg', '2012-12-14 03:41:20'),
-(4, 2, 1, 'SPLENDOR_SOLIS.jpg', '2012-12-14 04:04:59');
+INSERT INTO `assets` (`id`, `userid`, `projectid`, `name`, `create_time`) VALUES
+(1, 1, 1, 'Activities_of_the_Inanimate.jpg', '2012-12-14 04:04:59');
 
 -- --------------------------------------------------------
 
@@ -94,43 +91,15 @@ CREATE TABLE IF NOT EXISTS `comments` (
   `create_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `modify_time` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
-
--- --------------------------------------------------------
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
 
 --
--- Table structure for table `pages`
+-- Dumping data for table `comments`
 --
 
-CREATE TABLE IF NOT EXISTS `pages` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `page` varchar(150) NOT NULL,
-  `private` tinyint(1) NOT NULL DEFAULT '0',
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=18 ;
-
---
--- Dumping data for table `pages`
---
-
-INSERT INTO `pages` (`id`, `page`, `private`) VALUES
-(1, 'account.php', 1),
-(2, 'activate-account.php', 0),
-(3, 'admin_configuration.php', 1),
-(4, 'admin_page.php', 1),
-(5, 'admin_pages.php', 1),
-(6, 'admin_permission.php', 1),
-(7, 'admin_permissions.php', 1),
-(8, 'admin_user.php', 1),
-(9, 'admin_users.php', 1),
-(10, 'forgot-password.php', 0),
-(11, 'index.php', 0),
-(12, 'left-nav.php', 0),
-(13, 'login.php', 0),
-(14, 'logout.php', 1),
-(15, 'register.php', 0),
-(16, 'resend-activation.php', 0),
-(17, 'user_settings.php', 1);
+INSERT INTO `comments` (`id`, `userid`, `assetid`, `comment`, `create_time`, `modify_time`) VALUES
+(1, 1, 1, 'SO GOOD MAYNGE!!!', '2012-12-14 07:34:29', '2012-12-14 07:34:29'),
+(2, 1, 1, 'Would this be cool if it had more green here?', '2012-12-14 07:34:29', '2012-12-14 07:34:29');
 
 -- --------------------------------------------------------
 
@@ -164,8 +133,16 @@ CREATE TABLE IF NOT EXISTS `tags` (
   `name` varchar(64) NOT NULL,
   `locationx` int(11) NOT NULL,
   `locationy` int(11) NOT NULL,
+  `create_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
+
+--
+-- Dumping data for table `tags`
+--
+
+INSERT INTO `tags` (`id`, `commentid`, `name`, `locationx`, `locationy`, `create_time`) VALUES
+(1, 2, 'green', 100, 100, '2012-12-14 07:34:51');
 
 -- --------------------------------------------------------
 
@@ -188,7 +165,7 @@ CREATE TABLE IF NOT EXISTS `users` (
 --
 
 INSERT INTO `users` (`id`, `clientid`, `usertypeid`, `user_email`, `user_password`, `last_login`) VALUES
-(2, 1, 3, 'kshay@brandnetworksinc.com', 'bnhack', '2012-12-14 00:49:13');
+(1, 1, 4, 'kshay@brandnetworksinc.com', 'bnhack', '2012-12-14 00:49:13');
 
 -- --------------------------------------------------------
 
@@ -200,7 +177,7 @@ CREATE TABLE IF NOT EXISTS `usertype` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(32) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=5 ;
 
 --
 -- Dumping data for table `usertype`
@@ -209,7 +186,8 @@ CREATE TABLE IF NOT EXISTS `usertype` (
 INSERT INTO `usertype` (`id`, `name`) VALUES
 (1, 'Designer'),
 (2, 'Client'),
-(3, 'Project Manager');
+(3, 'Project Manager'),
+(4, 'Admin');
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
