@@ -10,7 +10,6 @@ var utils = {
 				password: password
 			}
 		}, function(response){
-			console.log(response.message);
 		}, 'json');
 	},
 
@@ -18,7 +17,29 @@ var utils = {
 
 	},
 
-	comment: function(){
+	comment: {
+
+		add: function(){
+			$.post(utils.ajax_uri, {
+				method: 'addComment',
+				params: {
+
+				}
+			}, function(response){
+			}, 'json');
+		},
+
+		edit: function(){
+
+		},
+
+		remove: function(){
+
+		}
+
+	},
+
+	search: function(){
 
 	}
 

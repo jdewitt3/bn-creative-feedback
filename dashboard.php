@@ -4,7 +4,7 @@
 
     require_once('include/header.php');
 ?>
-            <div class="row-fluid">
+            <div>
                 <div class="span8">
                     <h1>BN.creative-feedback</h1>
                 </div>

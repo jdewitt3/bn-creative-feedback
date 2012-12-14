@@ -1,8 +1,9 @@
 <?php
 
 function login($params){
-	//TESTING
-	if($params['username'] == 'joe' && $params['password'] == 'admin'){
+	require_once('../data/lib/Session.php');
+	$session = new Session();
+	if($session->Login($params['username'],$params['password'])){
 		$return['message'] = 'login successful';
 		$return['success'] = 'true';
 	}else{
@@ -13,8 +14,18 @@ function login($params){
 	return $return;
 }
 
-function logout(){
+function logout($params){
+	require_once('../data/lib/Session.php');
+	$session = new Session();
+	if($session->Logout(){
+		$return['message'] = 'logout successful';
+		$return['success'] = 'true';
+	}else{
+		$return['message'] = 'logout failed';
+		$return['success'] = 'false';
+	}
 
+	return $return;
 }
 
 ?>
