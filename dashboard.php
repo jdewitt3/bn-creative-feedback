@@ -1,26 +1,9 @@
-<!DOCTYPE html>
-<html lang="en">
-    <head>
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-        <title>Dashboard</title>
-        <meta name="description" content="">
-        <meta name="viewport" content="width=device-width">
+<?php
+    $page_title = "Dashboard";
+    $page_script = "dashboard.js";
 
-        <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
-        <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
-        <link rel="stylesheet" type="text/css" href="css/bootstrap-responsive.min.css">
-        <link rel="stylesheet" href="css/styles.css">
-    </head>
-    <body>
-        <!--[if lt IE 7]>
-            <p class="chromeframe">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">activate Google Chrome Frame</a> to improve your experience.</p>
-        <![endif]-->
-
-        <!-- Add your site or application content here -->
-        <div class="container">
-
-
+    require_once('include/header.php');
+?>
             <div class="row-fluid">
                 <div class="span8">
                     <h1>BN.creative-feedback</h1>
@@ -86,10 +69,4 @@
             </div>
 
         </div>
-        <script src="js/plugins/jquery-1.8.3.min.js"></script>
-        <script src="js/plugins/bootstrap.min.js"></script>
-        <script src="js/utils.js"></script>
-        <script src="js/script.js"></script>
-        <script src="js/index.js"></script>
-    </body>
-</html>
+<?php require_once('include/footer.php'); ?>
