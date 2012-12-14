@@ -24,3 +24,41 @@
 .last {
 	border-bottom:0;
 }
+
+.control-panel {
+	margin-bottom:.5em;
+}
+
+.add-comment {
+	padding:.5em;
+	border:1px solid #ccc;
+	margin-bottom:.5em;
+}
+
+.user-panel {
+	text-align:right;
+}
+
+#AddCommentForm textarea {
+	width:80%;
+}
+
+.asset-list, .recent-assets, .recent-activity {
+	padding:.5em;
+	border:1px solid #ccc;
+	margin-bottom:.5em;
+}
+
+.asset-list ul {
+	list-style-type:none;
+	margin:0;
+}
+
+.asset-list ul li {
+	padding:.5em;
+}
+
+.recent-item {
+	font-size:12px;
+	padding:.5em;
+}
